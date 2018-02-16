@@ -3,7 +3,7 @@
 [![Latest Version](https://img.shields.io/badge/npm-v0.0.1-C12127.svg)](https://www.npmjs.com/package/unistore-immer)
 [![CircleCI](https://circleci.com/gh/takefumi-yoshii/unistore-immer.svg?style=svg)](https://circleci.com/gh/takefumi-yoshii/unistore-immer)
 
-The bridge of unistore and immer.By using this you can safely change the value as immutable.The behavior of the model contributes greatly to the design pattern.Developers can concentrate on the scope of collections they deal with.
+The bridge of [unistore](https://github.com/developit/unistore) and [immer](https://github.com/mweststrate/immer).By using this you can safely change the value as immutable.The behavior of the model contributes greatly to the design pattern.Developers can concentrate on the scope of collections they deal with.
 
 ## install
 
@@ -13,11 +13,16 @@ $ npm install --save unistore-immer
 
 ## usage
 
+Setup states and getter as Model. Actions Scope is bound for model.
+
 ```javascript
 import { createActions } from 'unistore-immer'
 
 export const counterModel = (defs = {}) => ({
   count: 0,
+  expo2 () {
+    return this.count ** 2
+  },
   ...defs
 })
 
@@ -28,51 +33,48 @@ export const counterActions = store => createActions({
   decrement () {
     this.count--
   }
-}, 'counter') // define aggregate name.
+}, 'counter') // Specify the scope of the model.
 
 ```
 
-```javascript
-import { createAction } from 'unistore-immer'
-import { todoModel } from './todo'
-
-export const todosModel = (defs = {}) => ({
-  records: [],
-  getTodos () {
-    return this.records
-  },
-  getTodoByIndex (index) {
-    return this.records[index]
-  },
-  getTodosLength () {
-    return this.getTodos().length
-  },
-  ...defs
-})
-
-export const todosActions = store => createAction({
-  addTodo (task) {
-    this.records.push(todoModel({ task }))
-  }
-}, 'todos') // define aggregate name.
-
-```
+Use age of App entry point.
 
 ```javascript
 import { render } from 'preact'
 import createStore from 'unistore'
-import devtools from 'unistore/devtools'
-import { Provider } from 'unistore/preact'
-import { counterModel } from './models/counter'
-import { todosModel } from './models/todos'
-import View from './view'
+import { Provider, connect } from 'unistore/preact'
+import { counterModel, counterActions } from './models/counter'
 
-export const store = devtools(
-  createStore({
-    counter: counterModel({ count: 0 }),
-    todos: todosModel()
-  })
-)
+export const store = createStore({
+  counter: counterModel() // model name key.
+})
+
+function View () {
+  return connect('counter', counterActions)( // connect model.
+    ({ model, increment, decrement }) => {
+      return (
+        <CounterView
+          model={counter}
+          increment={increment}
+          decrement={decrement}
+        />
+      )
+    }
+  )
+}
+
+function CounterView ({ model, increment, decrement }) {
+  // plain jsx.
+  return (
+    <div>
+      <h1>Counter</h1>
+      <p>count = {model.count}</p>
+      <p>expo2 = {model.expo2()}</p> // computed getter.
+      <button onClick={increment}>increment</button>
+      <button onClick={decrement}>decrement</button>
+    </div>
+  )
+}
 
 render((
   <Provider store={store}>
@@ -81,3 +83,5 @@ render((
 document.getElementById('app'))
 
 ```
+
+[And more examples ->](./docs)
