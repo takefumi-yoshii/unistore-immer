@@ -1,0 +1,49 @@
+{
+  "name": "unistore-immer",
+  "version": "0.0.0",
+  "description": "The bridge of unistore and immer.",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "jest --watch",
+    "test": "jest",
+    "build": "babel src --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takefumi-yoshii/unistore-immer.git"
+  },
+  "author": "takefumi-yoshii",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/takefumi-yoshii/unistore-immer/issues"
+  },
+  "homepage": "https://github.com/takefumi-yoshii/unistore-immer#readme",
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": true
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "jest": "22.3.0"
+  },
+  "dependencies": {
+    "immer": "1.0.3"
+  },
+  "peerDependencies": {
+    "unistore": "3.0.4"
+  }
+}

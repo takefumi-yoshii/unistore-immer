@@ -1,0 +1,11 @@
+{
+  "unmockedModulePathPatterns": [
+    "<rootDir>/node_modules/babel-polyfill"
+  ],
+  "moduleNameMapper": {
+    "^~(.*)$": "<rootDir>/src$1"
+  },
+  "testPathIgnorePatterns": [
+    "<rootDir>/node_modules/"
+  ]
+}
