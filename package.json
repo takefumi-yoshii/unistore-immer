@@ -1,6 +1,6 @@
 {
   "name": "unistore-immer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The bridge of unistore and immer.",
   "main": "dist/index.js",
   "scripts": {
