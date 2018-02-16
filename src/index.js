@@ -1,5 +1,5 @@
 //
-// unistore-immer-bridge
+// unistore-immer
 // _____________________________________
 
 import produce from 'immer'
@@ -11,27 +11,24 @@ export function createAction (actions, modelName) {
       return produce(state, draft => {
         const fn = actions[key]
         const scope = draft[modelName]
-        return fn.bind(scope)(state, arg)
+        return fn.bind(scope, ...arg)()
       })
     }
   })
   return buf
 }
 
-export function update (store, fn, overwrite, action) {
+export function update (store, fn) {
   store.setState(
-    produce(store.getState(), draft => fn(draft)),
-    overwrite, action
+    produce(store.getState(), draft => fn(draft))
   )
 }
 
-export function change (store, resolver) {
+export function change (store) {
   return new Promise(resolve => {
-    const disposer = store.subscribe((state, action) => {
-      if (action === resolver) {
-        disposer()
-        resolve(state)
-      }
+    const unsbuscribe = store.subscribe(state => {
+      unsbuscribe()
+      resolve(state)
     })
   })
 }
