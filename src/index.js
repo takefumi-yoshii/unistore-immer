@@ -4,7 +4,7 @@
 
 import produce from 'immer'
 
-export function createAction (actions, modelName) {
+export function createActions (actions, modelName) {
   const buf = {}
   Object.keys(actions).forEach(key => {
     buf[key] = (state, ...arg) => {
