@@ -41,7 +41,7 @@
     "jest": "22.3.0"
   },
   "dependencies": {
-    "immer": "1.0.3"
+    "immer": "8.0.1"
   },
   "peerDependencies": {
     "unistore": "3.0.4"
