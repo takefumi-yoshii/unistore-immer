@@ -1569,9 +1569,9 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
-immer@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-1.0.3.tgz#2276ddb775e45a5d573b36168b4272f8db4fd000"
+immer@9.0.6:
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.6.tgz#7a96bf2674d06c8143e327cbf73539388ddf1a73"
 
 import-local@^1.0.0:
   version "1.0.0"
